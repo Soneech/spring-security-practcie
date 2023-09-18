@@ -1,5 +1,6 @@
 package org.soneech.springcourse.service;
 
+import org.soneech.springcourse.model.Role;
 import org.soneech.springcourse.model.User;
 import org.soneech.springcourse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class RegistrationService {
     @Transactional
     public void register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_USER");
+        user.setRole(new Role("ROLE_USER"));
         userRepository.save(user);
     }
 }

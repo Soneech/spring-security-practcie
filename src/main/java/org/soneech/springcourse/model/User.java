@@ -27,5 +27,7 @@ public class User {
     private int yearOfBirth;
 
     private String password;
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
 }
