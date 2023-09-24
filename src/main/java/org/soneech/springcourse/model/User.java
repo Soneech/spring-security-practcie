@@ -1,9 +1,6 @@
 package org.soneech.springcourse.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,15 +15,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Имя не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Имя должно содержать от 2 до 100 символов")
     private String username;
 
-    @Min(value = 1900, message = "Год рождения не может быть меньше 1900")
     @Column(name = "year_of_birth")
     private int yearOfBirth;
 
     private String password;
+
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;

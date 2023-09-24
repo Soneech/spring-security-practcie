@@ -28,7 +28,7 @@ public class UserValidator implements Validator {
         User user = (User) target;
         Optional<User> foundUser = userService.findByUsername(user.getUsername());
 
-        if (foundUser.isPresent() && user.getId() != foundUser.get().getId()) {
+        if (foundUser.isPresent()) {
             errors.rejectValue("username", "", "Пользователь с таким именем существует");
         }
     }

@@ -1,8 +1,6 @@
 package org.soneech.springcourse.service;
 
-import org.soneech.springcourse.model.Role;
 import org.soneech.springcourse.model.User;
-import org.soneech.springcourse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,19 +8,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RegistrationService {
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public RegistrationService(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public void register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(new Role("ROLE_USER"));
-        userRepository.save(user);
+        user.setRole(roleService.findByName("ROLE_USER"));
+        userService.save(user);
     }
 }

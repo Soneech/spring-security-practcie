@@ -13,3 +13,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+
+jwt:
+  secret:
+  subject:
+  issuer:
